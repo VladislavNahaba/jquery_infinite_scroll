@@ -35,8 +35,10 @@ Infinite scroll based on jquery
                     info: object - информация о работе infinite-scroll
                 last(info) - срабатывает во время последней записи
                      info: object - информация о работе infinite-scroll
-#Example
-const infinite = new InfiniteScroll(
+# Example
+
+
+**const infinite = new InfiniteScroll(
     '#infinite',
     {
         url: 'http://localhost:3000/get'
@@ -50,11 +52,11 @@ const infinite = new InfiniteScroll(
     }
 );
 
-infinite.on('init', () => {
+**infinite.on('init', () => {
     console.log('initialization');
 });
 
-infinite.on('response', (data, append, urlConfig, info) => {
+**infinite.on('response', (data, append, urlConfig, info) => {
     let template = '';
     data.forEach(el => {
     template += `<div class="infinite-block">
@@ -73,11 +75,12 @@ infinite.on('response', (data, append, urlConfig, info) => {
     append(template);
 });
 
-infinite.on("error", (error, workContinue, urlConfig, info) => {
+**infinite.on("error", (error, workContinue, urlConfig, info) => {
     console.log(error);
 });
 
-infinite.on("last", (info) => {
+**infinite.on("last", (info) => {
     console.log(info);
 });
-infinite.init();
+
+**infinite.init();
