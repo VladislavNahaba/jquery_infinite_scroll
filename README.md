@@ -38,49 +38,49 @@ Infinite scroll based on jquery
 # Example
 
 
-**const infinite = new InfiniteScroll(
-    '#infinite',
-    {
-        url: 'http://localhost:3000/get'
-    },
-    {
-        scrollThreshold: 50,
-        lastHtml: '<div class="text-center">Последняя запись</div>',
-        errorHtml: '<div class="text-center">Ошибка</div>',
-        loadingHtml: '<span class="loader"></span>',
-        requestType: 'post'
-    }
-);
+        const infinite = new InfiniteScroll(
+            '#infinite',
+            {
+                url: 'http://localhost:3000/get'
+            },
+            {
+                scrollThreshold: 50,
+                lastHtml: '<div class="text-center">Последняя запись</div>',
+                errorHtml: '<div class="text-center">Ошибка</div>',
+                loadingHtml: '<span class="loader"></span>',
+                requestType: 'post'
+            }
+        );
 
-**infinite.on('init', () => {
-    console.log('initialization');
-});
+        infinite.on('init', () => {
+            console.log('initialization');
+        });
 
-**infinite.on('response', (data, append, urlConfig, info) => {
-    let template = '';
-    data.forEach(el => {
-    template += `<div class="infinite-block">
-    <img class="infinite-block-image" src="https://i.simpalsmedia.com/999.md/BoardImages/160x120/5523a6bc1a74282e3985ecaedb3eb924.jpg" />
-        <div class="infinite-block-title">
-            ${el.title}
-        </div>
-        <div class="infinite-block-info">
-            ${el.year} / ${el.km}
-        </div>
-        <div class="infinite-block-price">
-            ${el.price}
-        </div>
-    </div>`
-    });
-    append(template);
-});
+        infinite.on('response', (data, append, urlConfig, info) => {
+            let template = '';
+            data.forEach(el => {
+            template += `<div class="infinite-block">
+            <img class="infinite-block-image" src="https://i.simpalsmedia.com/999.md/BoardImages/160x120/5523a6bc1a74282e3985ecaedb3eb924.jpg" />
+                <div class="infinite-block-title">
+                    ${el.title}
+                </div>
+                <div class="infinite-block-info">
+                    ${el.year} / ${el.km}
+                </div>
+                <div class="infinite-block-price">
+                    ${el.price}
+                </div>
+            </div>`
+            });
+            append(template);
+        });
 
-**infinite.on("error", (error, workContinue, urlConfig, info) => {
-    console.log(error);
-});
+        infinite.on("error", (error, workContinue, urlConfig, info) => {
+            console.log(error);
+        });
 
-**infinite.on("last", (info) => {
-    console.log(info);
-});
+        infinite.on("last", (info) => {
+            console.log(info);
+        });
 
-**infinite.init();
+        infinite.init();
