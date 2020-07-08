@@ -2,40 +2,67 @@
 Infinite scroll based on jquery
 # Documentation
         contstructor:
-            container: text/selector - Селектор на контейнер, где будет отрабатывать infinite-scroll.
+            container: text/selector
+                - selector for container.
             urlConfig: 
-                url: text - url for requests
-                params: object - params for request. If you use GET request, params will translate in query.
+                url: text
+                       - url for requests
+                params: object
+                        - params for request. If you use GET request, params will translate in query.
 
             settings:
-                scrollThreshold: integer - Sets the distance between the viewport to scroll area
-                appendTo: text/selector - Set container to append your template.
-                lastHtml: text - html, that will be shown if there is no more data from backend. This will trigger only if backend response is empty string, or object with key done: true.
-                errorHtml: text - html, that will be shown after error. For exmaple, lost connection or backend errors.
-                loader: text/selector - selector to your loader
-                loadingHtml: html - html-loader, that will be rendered in time of request and deleted after.
-                cache: boolean - cache data after response. If this option is 'on', you need to do some work manual: save data, and get data from data container.
-                autoTrigger: boolean - значение, которое указывает если инфинит скролл будет автоматически делать загрузку данных по достижению конца контейнера. Если указан false, то должен быть указан nextSelector
-                nextSelector: text/selector - Set selector for element. After clicking this element there will be new ajax request for data.
-                autoTriggerUntil: integer - You can set maximum value of request to backend
-                requestType: text - Type of request. Can be only GET, POST.
+                scrollThreshold: integer, default: 0
+                        - Sets the distance between the viewport to scroll area
+                appendTo: text/selector, default: null
+                        - Set container to append your template.
+                lastHtml: text, default: null
+                        - html, that will be shown if there is no more data from backend. This will trigger only if backend response is empty string, or object with key done: true.
+                errorHtml: text, default: null
+                        - html, that will be shown after error. For exmaple, lost connection or backend errors.
+                loader: text/selector, default: null
+                        - selector to your loader
+                loadingHtml: html, default: null
+                        - html-loader, that will be rendered in time of request and deleted after.
+                cache: boolean, default: false
+                        - cache data after response. If this option is 'on', you need to do some work manual: save data, and get data from data container.
+                intervalCheck: boolean, default: false
+                        - you can disable scroll events and check every 40(by default) ms if user reached bottom of the container.
+                intervalTime: integer, default: 40
+                        - with this interval infinite scroll will check if user reached bottom of the container.
+                autoTrigger: boolean, default: true
+                        - will infinite scroll auto trigget at the bottom of the container. If false, nextSelector must be set.
+                nextSelector: text/selector, default: null
+                        - set selector for element. After clicking this element there will be new ajax request for data.
+                autoTriggerUntil: integer, default: null
+                        - you can set maximum value of request to backend
+                requestType: text, default: 'get'
+                        - type of request. Can be only GET, POST.
 
         methods:
-            init(): - initialize infinite-scroll
-            on(callbackName, func): - callbacks from instance of Infinite Scroll class.
-                init() - after inizialization of infinite-scroll
-                response(data, append, urlConfig, info) - after getting response from server.
-                    data: - response data
-                    append(template): function - Append your template to container with this function.
-                    urlConfig: object - url config object. You can change parameters of url config with this so they will change in instance of infinite scroll.
-                    info: object - info about work
-                error(error, workContinue, urlConfig, info) - work after error
-                    error: - error data
-                    workContinue: function - with this function you can handle errors and if this error was fixed(for example, lost connection), you can continue work of infinite scroll
-                    urlConfig: object - url config object. You can change parameters of url config with this so they will change in instance of infinite scroll.
-                    info: object - info about work
-                last(info) - work when server response is empty string or object with key done:true
-                     info: object - info about work
+        
+            init():
+                - initialize infinite-scroll
+                
+            on(callbackName, func):
+                - callbacks from instance of Infinite Scroll class.
+                
+                init:
+                        - after inizialization of infinite-scroll
+                response(data, append, urlConfig, info)
+                        - after getting response from server.
+                            data: - response data
+                            append(template): function - Append your template to container with this function.
+                            urlConfig: object - url config object. You can change parameters of url config with this so they will change in instance of infinite scroll.
+                            info: object - info about work
+                error(error, workContinue, urlConfig, info)
+                        - work after error
+                            error: - error data
+                            workContinue: function - with this function you can handle errors and if this error was fixed(for example, lost connection), you can continue work of infinite scroll
+                            urlConfig: object - url config object. You can change parameters of url config with this so they will change in instance of infinite scroll.
+                            info: object - info about work
+                last(info)
+                        - work when server response is empty string or object with key done:true
+                            info: object - info about work
                      
         # Methods if cache is enabled.
                 clearCache(): - clear all cached data.
