@@ -16,6 +16,8 @@ class InfiniteScroll {
         intervalTime: 40,
         nextSelector: null,
         autoTriggerUntil: null,
+        skipStart: 0,
+        controlReady: false,
         requestType: 'get'
     }) {
         const defaultValues = {
@@ -31,6 +33,8 @@ class InfiniteScroll {
             intervalTime: 40,
             nextSelector: null,
             autoTriggerUntil: null,
+            skipStart: 0,
+            controlReady: false,
             requestType: 'get'
         };
         
@@ -49,7 +53,7 @@ class InfiniteScroll {
         this.__loading = false;
         this.__done = false;
         this.__errors = [];
-        this.__counter = 0;
+        this.__counter = this.__settings.skipStart;
         this.__callbacks = {
             'init': () => {},
             'reached': () => {},
@@ -244,10 +248,18 @@ class InfiniteScroll {
             });
         }
     }
+    
+    ready() {
+        if (this.__settings.controlReady) {
+                    this.__loading = false;
+        }
+    }
 
     __successResponse(data, urlConfig, status) {
         this.__counter++;
-        this.__loading = false;
+        if (!this.__settings.controlReady) {
+            this.__loading = false;
+        }
         this.__hideLoader();
         this.__responseHandler(data, urlConfig);
     }
